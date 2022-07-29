@@ -6,11 +6,21 @@
 Bem-vindo à calculadora de impostos.
 
 Selecione a opção desejada:
-1 - Calculadora Rápida
-2 - Calcular e registrar
-3 - Consultar por Cpf
-4 - Mostrar todos registros
-5 - Sair
+1 - Consulta de dados
+2 - Novo registro
+3 - Atualizar dados
+4 - Sair
+";
+
+        public const string RegistrationMenu = @"
+
+Selecione a opção desejada:
+1 - Registrar Novo Aluno
+2 - Registrar Novo Professor
+3 - Registrar Novo Curso
+4 - Registrar Nova Turma
+5 - Registrar Nova Aula
+6 - Sair
 ";
     }
 }

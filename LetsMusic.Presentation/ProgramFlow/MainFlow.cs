@@ -1,41 +1,30 @@
-﻿using LetsMusic.Domain;
-using LetsMusic.Presentation.Infrastructure;
+﻿using LetsMusic.Presentation.Infrastructure;
 using LetsMusic.Presentation.Presentations;
-using LetsMusic.Services;
 
 namespace LetsMusic.Presentation.ProgramFlow
 {
-    public class MainFlow : IMainFlow
+    public class MainFlow
     {
-        private readonly ITaxCalculator _service;
-
-        public MainFlow(ITaxCalculator service)
-        {
-            _service = service;
-        }
-        public void BeginApp()
+        public static void BeginApp()
         {
             NavigateMenu();
         }
-        public void NavigateMenu()
+        public static void NavigateMenu()
         {
             var selectedMenu = ScreenPresenter.GetOption(
-                Menu.InitialMenu, 1, 5);
+                Menu.InitialMenu, 1, 4);
             switch (selectedMenu)
             {
                 case 1:
-                    TaxSimpleCalculation();
+                    Search();
                     break;
                 case 2:
-                    TaxRegistration();
+                    //Registration();
                     break;
                 case 3:
-                    TaxConsultByCpf();
+                    Update();
                     break;
                 case 4:
-                    ShowAllRegister();
-                    break;
-                case 5:
                     Quit();
                     break;
             }
@@ -44,53 +33,43 @@ namespace LetsMusic.Presentation.ProgramFlow
             BeginApp();
         }
 
-        public double TaxSimpleCalculation()
-        {
-            double value = Convert.ToDouble(ScreenPresenter.GetInput(Messages.valueInput, InputValidations.ValidatePositiveNumber, Messages.valueInputError));
+        //public void Create()
+        //{
+        //double value = Convert.ToDouble(ScreenPresenter.GetInput(Messages.valueInput, InputValidations.ValidatePositiveNumber, Messages.valueInputError));
 
-            double taxValue = _service.TaxCalculation(value);
-            ScreenPresenter.DisplayMessage(Messages.ScreenTaxToPay(taxValue));
-            return taxValue;
-        }
-        public void TaxRegistration()
+        //double taxValue = _service.TaxCalculation(value);
+        //ScreenPresenter.DisplayMessage(Messages.ScreenTaxToPay(taxValue));
+        //return taxValue;
+        //}
+        public static void Update()
         {
-            Person person = new();
-            person.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
-            person.Cpf = ScreenPresenter.GetInput(Messages.cpfInput, InputValidations.ValidateConsoleNotEmpty, Messages.cpfInputError).Replace(".", "").Replace("-", "");
-            person.TotalValue = Convert.ToDouble(ScreenPresenter.GetInput(Messages.valueInput, InputValidations.ValidatePositiveNumber, Messages.valueInputError));
-            person.Tax = _service.TaxCalculation(person.TotalValue);
-            ScreenPresenter.DisplayMessage(Messages.ScreenTaxToPay(person.Tax));
+            //Person person = new();
+            //person.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
+            //person.Cpf = ScreenPresenter.GetInput(Messages.cpfInput, InputValidations.ValidateConsoleNotEmpty, Messages.cpfInputError).Replace(".", "").Replace("-", "");
+            //person.TotalValue = Convert.ToDouble(ScreenPresenter.GetInput(Messages.valueInput, InputValidations.ValidatePositiveNumber, Messages.valueInputError));
+            //person.Tax = _service.TaxCalculation(person.TotalValue);
+            //ScreenPresenter.DisplayMessage(Messages.ScreenTaxToPay(person.Tax));
 
-            if (!_service.RegisterTaxValue(person))
-            {
-                ScreenPresenter.DisplayMessage(Messages.personAlreadyExists);
-                return;
-            }
-            _service.RegisterTaxValue(person);
-            ScreenPresenter.DisplayMessage(Messages.registerSuccess);
+            //if (!_service.RegisterTaxValue(person))
+            //{
+            //    ScreenPresenter.DisplayMessage(Messages.personAlreadyExists);
+            //    return;
+            //}
+            //_service.RegisterTaxValue(person);
+            //ScreenPresenter.DisplayMessage(Messages.registerSuccess);
         }
-        public void TaxConsultByCpf()
+        public static void Search()
         {
-            string cpf = ScreenPresenter.GetInput(Messages.cpfInput, InputValidations.ValidateCpf, Messages.cpfInputError).Replace(".", "").Replace("-", "");
-            var personSearchedByCpf = _service.SearchTaxInfo(cpf);
-            if (personSearchedByCpf != null)
-            {
-                ScreenPresenter.DisplayPerson(personSearchedByCpf);
-                return;
-            }
-            ScreenPresenter.DisplayMessage(Messages.personNotFound);
+            //string cpf = ScreenPresenter.GetInput(Messages.cpfInput, InputValidations.ValidateCpf, Messages.cpfInputError).Replace(".", "").Replace("-", "");
+            //var personSearchedByCpf = _service.SearchTaxInfo(cpf);
+            //if (personSearchedByCpf != null)
+            //{
+            //    ScreenPresenter.DisplayPerson(personSearchedByCpf);
+            //    return;
+            //}
+            //ScreenPresenter.DisplayMessage(Messages.personNotFound);
         }
-        public void ShowAllRegister()
-        {
-            List<Person> lista = _service.ListTaxInfo();
-            if (lista.Any())
-            {
-                ScreenPresenter.DisplayPersonList(lista);
-                return;
-            }
-            ScreenPresenter.DisplayMessage(Messages.personListEmpty);
-        }
-        public void Quit()
+        public static void Quit()
         {
             Environment.Exit(0);
         }

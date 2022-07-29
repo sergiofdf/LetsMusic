@@ -5,18 +5,19 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>CalculadoraImpostos_SergioDias.Presentation.Program</StartupObject>
+    <StartupObject>LetsMusic.Presentation.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ConsoleTables" Version="2.4.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CalculadoraImpostos_SergioDias.Domain\CalculadoraImpostos_SergioDias.Domain.csproj" />
-    <ProjectReference Include="..\CalculadoraImpostos_SergioDias.Repositories\CalculadoraImpostos_SergioDias.Repositories.csproj" />
-    <ProjectReference Include="..\CalculadoraImpostos_SergioDias.Services\CalculadoraImpostos_SergioDias.Services.csproj" />
+    <ProjectReference Include="..\LetsMusic.Domain\LetsMusic.Domain.csproj" />
+    <ProjectReference Include="..\LetsMusic.Repositories\LetsMusic.Repositories.csproj" />
+    <ProjectReference Include="..\LetsMusic.Services\LetsMusic.Services.csproj" />
   </ItemGroup>
 
 </Project>

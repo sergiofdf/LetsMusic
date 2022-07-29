@@ -1,7 +1,4 @@
-﻿using LetsMusic.Domain;
-using ConsoleTables;
-
-namespace LetsMusic.Presentation.Infrastructure
+﻿namespace LetsMusic.Presentation.Infrastructure
 {
     public static class ScreenPresenter
     {
@@ -56,24 +53,24 @@ namespace LetsMusic.Presentation.Infrastructure
         {
             Console.WriteLine(message);
         }
-        public static void DisplayPerson(Person person)
-        {
-            Console.Clear();
-            var table = new ConsoleTable("CPF", "Nome", "Total Recebido", "Imposto a Pagar");
-            table.AddRow(person.Cpf, person.Name, $"R$ { string.Format("{0:0.00}", person.TotalValue)}", $"R$ { string.Format("{0:0.00}", person.Tax)}");
-            table.Write(Format.Alternative);
-            Console.WriteLine();
-        }
-        public static void DisplayPersonList(List<Person> people)
-        {
-            Console.Clear();
-            var table = new ConsoleTable("CPF", "Nome", "Total Recebido", "Imposto a Pagar");
-            foreach (var person in people)
-            {
-                table.AddRow(person.Cpf, person.Name, $"R$ { string.Format("{0:0.00}", person.TotalValue)}", $"R$ { string.Format("{0:0.00}", person.Tax)}");
-            }
-            table.Write(Format.Alternative);
-            Console.WriteLine();
-        }
+        //public static void DisplayPerson(Person person)
+        //{
+        //    Console.Clear();
+        //    var table = new ConsoleTable("CPF", "Nome", "Total Recebido", "Imposto a Pagar");
+        //    table.AddRow(person.Cpf, person.Name, $"R$ { string.Format("{0:0.00}", person.TotalValue)}", $"R$ { string.Format("{0:0.00}", person.Tax)}");
+        //    table.Write(Format.Alternative);
+        //    Console.WriteLine();
+        //}
+        //public static void DisplayPersonList(List<Person> people)
+        //{
+        //    Console.Clear();
+        //    var table = new ConsoleTable("CPF", "Nome", "Total Recebido", "Imposto a Pagar");
+        //    foreach (var person in people)
+        //    {
+        //        table.AddRow(person.Cpf, person.Name, $"R$ { string.Format("{0:0.00}", person.TotalValue)}", $"R$ { string.Format("{0:0.00}", person.Tax)}");
+        //    }
+        //    table.Write(Format.Alternative);
+        //    Console.WriteLine();
+        //}
     }
 }

@@ -2,9 +2,9 @@
 {
     public class Person
     {
-        public string Cpf { get; set; }
+        public int Registration { get; set; }
         public string Name { get; set; }
-        public double TotalValue { get; set; }
-        public double Tax { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
     }
 }

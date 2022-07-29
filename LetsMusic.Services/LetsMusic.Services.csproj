@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CalculadoraImpostos_SergioDias.Repositories\CalculadoraImpostos_SergioDias.Repositories.csproj" />
+    <ProjectReference Include="..\LetsMusic.Domain\LetsMusic.Domain.csproj" />
+    <ProjectReference Include="..\LetsMusic.Repositories\LetsMusic.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

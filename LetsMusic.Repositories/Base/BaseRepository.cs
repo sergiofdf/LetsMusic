@@ -1,6 +1,7 @@
 ﻿using LetsMusic.Repositories.Interfaces;
 using Newtonsoft.Json;
-using System.Text;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace LetsMusic.Repositories.Base
 {
@@ -9,24 +10,15 @@ namespace LetsMusic.Repositories.Base
         public BaseRepository()
         {
         }
-
         public void Save(IEnumerable<T> values)
         {
-            var name = $"{typeof(T).Name}.txt";
-
-            if (!File.Exists(name))
+            SqlConnection sqlCon = new SqlConnection(@"Server=vps40251.publiccloud.com.br;Database=LetsMusic;User Id=sergio.dias;Password=Abc123546!;");
+            SqlDataAdapter sqlda = new SqlDataAdapter("SELECT * FROM Aluno", sqlCon);
+            DataTable dtbl = new DataTable();
+            sqlda.Fill(dtbl);
+            foreach (DataRow row in dtbl.Rows)
             {
-                using var fs = File.Create(name);
-            }
-
-            var jsonStr = JsonConvert.SerializeObject(values);
-
-            using (var file = File.Open(name, FileMode.OpenOrCreate))
-            {
-                byte[] dados = new UTF8Encoding(true).GetBytes(jsonStr);
-                file.Write(dados, 0, dados.Length);
-
-                file.Flush();
+                Console.WriteLine(row["Nome_aluno"]);
             }
         }
 
