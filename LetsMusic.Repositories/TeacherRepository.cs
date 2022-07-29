@@ -1,6 +1,7 @@
-﻿using LetsMusic.Domain;
-using LetsMusic.Repositories.Interfaces;
+﻿using System.Configuration;
 using System.Data.SqlClient;
+using LetsMusic.Domain;
+using LetsMusic.Repositories.Interfaces;
 
 namespace LetsMusic.Repositories
 {
@@ -12,8 +13,7 @@ namespace LetsMusic.Repositories
         }
         public void SaveTeacher(Teacher teacher)
         {
-            string conString = @"Server=vps40251.publiccloud.com.br;Database=LetsMusic;User Id=sergio.dias;Password=Abc123546!;";
-
+            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
 
             using (SqlConnection openCon = new SqlConnection(conString))
             {
