@@ -1,41 +1,47 @@
 ﻿using LetsMusic.Repositories.Interfaces;
-using Newtonsoft.Json;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace LetsMusic.Repositories.Base
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository : IBaseRepository
     {
         public BaseRepository()
         {
+
         }
-        public void Save(IEnumerable<T> values)
+        public void Save(string saveSqlCommand)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Server=vps40251.publiccloud.com.br;Database=LetsMusic;User Id=sergio.dias;Password=Abc123546!;");
-            SqlDataAdapter sqlda = new SqlDataAdapter("SELECT * FROM Aluno", sqlCon);
-            DataTable dtbl = new DataTable();
-            sqlda.Fill(dtbl);
-            foreach (DataRow row in dtbl.Rows)
+            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
+
+            using (SqlConnection openCon = new SqlConnection(conString))
             {
-                Console.WriteLine(row["Nome_aluno"]);
+                using (SqlCommand querySaveStaff = new SqlCommand(saveSqlCommand))
+                {
+                    querySaveStaff.Connection = openCon;
+                    openCon.Open();
+                    querySaveStaff.ExecuteNonQuery();
+                }
             }
         }
 
-        public IEnumerable<T> Get()
+        public DataTable Get(string getSqlCommand)
         {
-            IEnumerable<T> response = default;
-            var name = $"{typeof(T).Name}.txt";
+            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
 
-            if (File.Exists(name))
+            using (SqlConnection openCon = new SqlConnection(conString))
             {
-                var fileStr = File.ReadAllText(name);
+                SqlDataAdapter sqlda = new SqlDataAdapter(getSqlCommand, openCon);
+                DataTable dtbl = new DataTable();
+                sqlda.Fill(dtbl);
 
-                if (!string.IsNullOrWhiteSpace(fileStr))
-                    response = JsonConvert.DeserializeObject<IEnumerable<T>>(fileStr);
+                return dtbl;
             }
+        }
+        public void Update(string updateSqlCommand)
+        {
 
-            return response;
         }
     }
 }

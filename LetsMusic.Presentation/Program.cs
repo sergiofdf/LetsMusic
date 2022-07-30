@@ -1,5 +1,4 @@
-﻿using LetsMusic.Domain;
-using LetsMusic.Presentation.ProgramFlow;
+﻿using LetsMusic.Presentation.ProgramFlow;
 using LetsMusic.Repositories;
 using LetsMusic.Repositories.Base;
 using LetsMusic.Repositories.Interfaces;
@@ -12,25 +11,26 @@ namespace LetsMusic.Presentation
     {
         static void Main()
         {
-
-
-
             ServiceCollection services = new();
             ConfigureServices(services);
 
             var serviceProvider = services.BuildServiceProvider();
-            var registrationFlow = serviceProvider.GetService<IRegistrationFlow>();
+            var mainFlow = serviceProvider.GetService<IMainFlow>();
 
-            registrationFlow.RegistrationMenu();
+            mainFlow.BeginApp();
         }
 
         public static void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddScoped<IMainFlow, MainFlow>()
+                .AddScoped<ISearchFlow, SearchFlow>()
                 .AddScoped<IRegistrationFlow, RegistrationFlow>()
-                .AddScoped<ITeacherServices, TeacherServices>()
+                .AddScoped<ISearchServices, SearchServices>()
+                .AddScoped<IRegistrationServices, RegistrationServices>()
+                .AddScoped<IStudentRepository, StudentRepository>()
                 .AddScoped<ITeacherRepository, TeacherRepository>()
-                .AddScoped<IBaseRepository<Teacher>, BaseRepository<Teacher>>();
+                .AddScoped<IBaseRepository, BaseRepository>();
         }
     }
 }

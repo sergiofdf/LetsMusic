@@ -4,6 +4,8 @@
     {
         public const string nameInput = "Digite o nome";
         public const string nameInputError = "Não é aceito campo vazio";
+        public const string idInput = "Digite a matrícula";
+        public const string idInputError = "Digite um número inteiro. Não é aceito campo vazio";
         public const string emailInput = "Digite o email";
         public const string emailInputError = "Digite um email válido";
         public const string phoneInput = "Digite o telefone";

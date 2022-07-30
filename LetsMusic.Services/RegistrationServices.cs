@@ -3,10 +3,10 @@ using LetsMusic.Repositories.Interfaces;
 
 namespace LetsMusic.Services
 {
-    public class TeacherServices : ITeacherServices
+    public class RegistrationServices : IRegistrationServices
     {
         private readonly ITeacherRepository _teacherRepository;
-        public TeacherServices(ITeacherRepository teacherRepository)
+        public RegistrationServices(ITeacherRepository teacherRepository)
         {
             _teacherRepository = teacherRepository;
         }

@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data.SqlClient;
-using LetsMusic.Domain;
+﻿using LetsMusic.Domain;
 using LetsMusic.Repositories.Interfaces;
 
 namespace LetsMusic.Repositories
@@ -13,21 +11,12 @@ namespace LetsMusic.Repositories
         }
         public void SaveTeacher(Teacher teacher)
         {
-            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
+            string saveStaff = $"INSERT INTO professor VALUES('{teacher.Name}',{teacher.Salary},'{teacher.Phone}','{teacher.Email}'); ";
+        }
 
-            using (SqlConnection openCon = new SqlConnection(conString))
-            {
-                string saveStaff = $"INSERT INTO professor VALUES('{teacher.Name}',{teacher.Salary},'{teacher.Phone}','{teacher.Email}'); ";
-
-                using (SqlCommand querySaveStaff = new SqlCommand(saveStaff))
-                {
-                    querySaveStaff.Connection = openCon;
-
-                    openCon.Open();
-
-                    querySaveStaff.ExecuteNonQuery();
-                }
-            }
+        public void GetTeacher(Teacher teacher)
+        {
+            string getStaff = $"SELECT * FROM professor";
         }
     }
 }

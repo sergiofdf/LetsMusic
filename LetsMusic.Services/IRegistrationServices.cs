@@ -2,7 +2,7 @@
 
 namespace LetsMusic.Services
 {
-    public interface ITeacherServices
+    public interface IRegistrationServices
     {
         public bool TeacherRegistration(Teacher teacher);
     }

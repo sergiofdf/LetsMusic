@@ -7,11 +7,15 @@ namespace LetsMusic.Presentation.ProgramFlow
 {
     public class RegistrationFlow : IRegistrationFlow
     {
-        private readonly ITeacherServices _teacherServices;
+        private readonly IRegistrationServices _teacherServices;
 
-        public RegistrationFlow(ITeacherServices teacherServices)
+        public RegistrationFlow(IRegistrationServices teacherServices)
         {
             _teacherServices = teacherServices;
+        }
+        public void OpenRegistrationMenu()
+        {
+            RegistrationMenu();
         }
         public void RegistrationMenu()
         {
@@ -35,12 +39,12 @@ namespace LetsMusic.Presentation.ProgramFlow
                     LessonRegistration();
                     break;
                 case 6:
-                    MainFlow.Quit();
+                    Environment.Exit(0);
                     break;
             }
             ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
             Console.ReadKey();
-            MainFlow.BeginApp();
+            OpenRegistrationMenu();
         }
 
         public void StudentRegistration()
@@ -56,6 +60,7 @@ namespace LetsMusic.Presentation.ProgramFlow
             teacher.Phone = ScreenPresenter.GetInput(Messages.phoneInput, InputValidations.ValidateConsoleNotEmpty, Messages.phoneInputError);
 
             bool registrationResult = _teacherServices.TeacherRegistration(teacher);
+            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
             Console.ReadKey();
 
         }

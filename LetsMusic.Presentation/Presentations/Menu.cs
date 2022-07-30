@@ -3,13 +3,33 @@
     public static class Menu
     {
         public const string InitialMenu = @"
-Bem-vindo à calculadora de impostos.
+Bem-vindo à Let's Music
 
 Selecione a opção desejada:
 1 - Consulta de dados
 2 - Novo registro
 3 - Atualizar dados
 4 - Sair
+";
+
+        public const string SearchMenu = @"
+
+Selecione a opção desejada:
+1 - Consultar Dados de Alunos
+2 - Consultar Dados de Professores
+3 - Consultar Dados de Cursos
+4 - Consultar Dados de Turmas
+5 - Consultar Dados de Aulas
+6 - Sair
+";
+
+        public const string PersonSearchMenu = @"
+
+Selecione a opção desejada:
+1 - Buscar por matrícula
+2 - Buscar por nome
+3 - Listar todos alunos
+4 - Voltar
 ";
 
         public const string RegistrationMenu = @"
