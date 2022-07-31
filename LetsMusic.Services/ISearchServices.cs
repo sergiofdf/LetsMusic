@@ -2,8 +2,9 @@
 {
     public interface ISearchServices
     {
-        public void SearchPersonById(int id);
-        public void SearchPersonByName(string name);
-        public void ListAllPerson();
+        public void SearchById(int id, string searchObject);
+        public void SearchByName(string name, string searchObject);
+        public void ListAllData(string searchObject);
+        public void SearchByYear(int year, string searchObject);
     }
 }

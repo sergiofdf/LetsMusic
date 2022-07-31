@@ -1,6 +1,6 @@
 ﻿namespace LetsMusic.Domain
 {
-    public class Class
+    public class MusicClass
     {
         public int ClassId { get; set; }
         public char Period { get; set; }

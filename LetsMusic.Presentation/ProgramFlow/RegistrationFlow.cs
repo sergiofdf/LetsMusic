@@ -7,11 +7,11 @@ namespace LetsMusic.Presentation.ProgramFlow
 {
     public class RegistrationFlow : IRegistrationFlow
     {
-        private readonly IRegistrationServices _teacherServices;
+        private readonly IRegistrationServices _registrationServices;
 
-        public RegistrationFlow(IRegistrationServices teacherServices)
+        public RegistrationFlow(IRegistrationServices registrationServices)
         {
-            _teacherServices = teacherServices;
+            _registrationServices = registrationServices;
         }
         public void OpenRegistrationMenu()
         {
@@ -49,7 +49,14 @@ namespace LetsMusic.Presentation.ProgramFlow
 
         public void StudentRegistration()
         {
+            Student student = new();
+            student.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
+            student.Email = ScreenPresenter.GetInput(Messages.emailInput, InputValidations.ValidateConsoleNotEmpty, Messages.emailInputError);
+            student.Phone = ScreenPresenter.GetInput(Messages.phoneInput, InputValidations.ValidateConsoleNotEmpty, Messages.phoneInputError);
 
+            bool registrationResult = _registrationServices.StudentRegistration(student);
+            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
+            Console.ReadKey();
         }
         public void TeacherRegistration()
         {
@@ -59,22 +66,30 @@ namespace LetsMusic.Presentation.ProgramFlow
             teacher.Email = ScreenPresenter.GetInput(Messages.emailInput, InputValidations.ValidateConsoleNotEmpty, Messages.emailInputError);
             teacher.Phone = ScreenPresenter.GetInput(Messages.phoneInput, InputValidations.ValidateConsoleNotEmpty, Messages.phoneInputError);
 
-            bool registrationResult = _teacherServices.TeacherRegistration(teacher);
+            bool registrationResult = _registrationServices.TeacherRegistration(teacher);
             ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
             Console.ReadKey();
 
         }
         public void CourseRegistration()
         {
+            Course course = new();
+            course.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
+            course.Workload = Convert.ToInt32(ScreenPresenter.GetInput(Messages.workLoadInput, InputValidations.ValidatePositiveNumber, Messages.workLoadInputError));
+            course.Vacancies = Convert.ToInt32(ScreenPresenter.GetInput(Messages.vacanciesInput, InputValidations.ValidatePositiveNumber, Messages.vacanciesInputError));
+
+            bool registrationResult = _registrationServices.CourseRegistration(course);
+            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
+            Console.ReadKey();
 
         }
         public void ClassRegistration()
         {
-
+            Console.WriteLine("Em desenvolvimento...");
         }
         public void LessonRegistration()
         {
-
+            Console.WriteLine("Em desenvolvimento...");
         }
     }
 }

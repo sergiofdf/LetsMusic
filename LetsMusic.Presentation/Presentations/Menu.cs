@@ -23,15 +23,23 @@ Selecione a opção desejada:
 6 - Sair
 ";
 
-        public const string PersonSearchMenu = @"
+        public const string SearchOptionMenu = @"
 
 Selecione a opção desejada:
-1 - Buscar por matrícula
+1 - Buscar por código
 2 - Buscar por nome
-3 - Listar todos alunos
+3 - Listar todos cadastros
 4 - Voltar
 ";
 
+        public const string SearchOptionMenu2 = @"
+
+Selecione a opção desejada:
+1 - Buscar por código
+2 - Buscar por ano
+3 - Listar todos cadastros
+4 - Voltar
+";
         public const string RegistrationMenu = @"
 
 Selecione a opção desejada:

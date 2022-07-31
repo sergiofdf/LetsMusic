@@ -1,4 +1,5 @@
-﻿using LetsMusic.Presentation.ProgramFlow;
+﻿using LetsMusic.Domain;
+using LetsMusic.Presentation.ProgramFlow;
 using LetsMusic.Repositories;
 using LetsMusic.Repositories.Base;
 using LetsMusic.Repositories.Interfaces;
@@ -28,8 +29,13 @@ namespace LetsMusic.Presentation
                 .AddScoped<IRegistrationFlow, RegistrationFlow>()
                 .AddScoped<ISearchServices, SearchServices>()
                 .AddScoped<IRegistrationServices, RegistrationServices>()
-                .AddScoped<IStudentRepository, StudentRepository>()
-                .AddScoped<ITeacherRepository, TeacherRepository>()
+                .AddScoped<ISearchRepository<Student>, StudentRepository>()
+                .AddScoped<ISearchRepository<Teacher>, TeacherRepository>()
+                .AddScoped<ISearchRepository<Course>, CourseRepository>()
+                .AddScoped<ISearchClassRepository, ClassRepository>()
+                .AddScoped<IRegistrationRepository<Teacher>, TeacherRepository>()
+                .AddScoped<IRegistrationRepository<Student>, StudentRepository>()
+                .AddScoped<IRegistrationRepository<Course>, CourseRepository>()
                 .AddScoped<IBaseRepository, BaseRepository>();
         }
     }

@@ -8,7 +8,8 @@ namespace LetsMusic.Presentation.ProgramFlow
         private readonly ISearchFlow _searchFlow;
         private readonly IRegistrationFlow _registrationFlow;
         public MainFlow(ISearchFlow searchFlow
-            , IRegistrationFlow registrationFlow)
+            , IRegistrationFlow registrationFlow
+            )
         {
             _searchFlow = searchFlow;
             _registrationFlow = registrationFlow;

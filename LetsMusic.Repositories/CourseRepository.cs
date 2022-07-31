@@ -4,26 +4,26 @@ using System.Data;
 
 namespace LetsMusic.Repositories
 {
-    public class StudentRepository : ISearchRepository<Student>, IRegistrationRepository<Student>
+    public class CourseRepository : ISearchRepository<Course>, IRegistrationRepository<Course>
     {
         private readonly IBaseRepository _baseRepository;
-        public StudentRepository(IBaseRepository baseRepository)
+        public CourseRepository(IBaseRepository baseRepository)
         {
             _baseRepository = baseRepository;
         }
         public void ListAllData()
         {
-            string getSqlCommand = $"SELECT * FROM aluno";
+            string getSqlCommand = $"SELECT * FROM curso";
             ExecuteQuerySearch(getSqlCommand);
         }
         public void GetDataById(int id)
         {
-            string getSqlCommand = $"SELECT * FROM aluno WHERE Matr_Aluno = {id};";
+            string getSqlCommand = $"SELECT * from curso WHERE Cod_curso = {id};";
             ExecuteQuerySearch(getSqlCommand);
         }
         public void GetDataByName(string name)
         {
-            string getSqlCommand = $"SELECT * FROM aluno WHERE UPPER(Nome_Aluno) LIKE UPPER('%{name}%');";
+            string getSqlCommand = $"SELECT * from curso WHERE UPPER(Nome_Curso) LIKE UPPER('%{name}%');";
             ExecuteQuerySearch(getSqlCommand);
         }
         public void ExecuteQuerySearch(string getSqlCommand)
@@ -31,9 +31,9 @@ namespace LetsMusic.Repositories
             DataTable students = _baseRepository.Get(getSqlCommand);
             students.Print();
         }
-        public void Save(Student student)
+        public void Save(Course course)
         {
-            string saveSqlCommand = $"INSERT INTO aluno VALUES('{student.Name}', '{student.Phone}','{student.Email}'); ";
+            string saveSqlCommand = $"INSERT INTO curso VALUES('{course.Name}', '{course.Workload}','{course.Vacancies}'); ";
             _baseRepository.Save(saveSqlCommand);
         }
     }
