@@ -71,4 +71,11 @@ BEGIN
 		RETURN @resultado * 100
 END
 
-SELECT dbo.calcula_percentual_presenca(1);
+SELECT dbo.calcula_percentual_presenca(1) AS 'Percentual de Presença';
+
+	-- Lista de presença da aula 1
+	SELECT al.Matr_Aluno, al.Nome_Aluno, CASE WHEN aula_aluno.presenca_aluno = 0 THEN 'Ausente' ELSE 'Presente' END AS 'Presença' 
+	FROM aluno al
+	JOIN aula_aluno
+	ON al.Matr_Aluno = aula_aluno.Matr_Aluno
+	WHERE aula_aluno.Cod_aula = 1;
