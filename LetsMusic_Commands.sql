@@ -8,7 +8,7 @@
 	SELECT * FROM professor p
 	WHERE p.Salario > (SELECT AVG(p.Salario) FROM professor p);
 
-	-- Quais foram os cursos ministrados pelo professor X utilizando PROCEDURE
+	-- Quais foram os cursos ministrados pelo professor X?
 	CREATE PROCEDURE cursos_professor
 	(@pNomeProfessor VARCHAR(40))
 	AS
@@ -42,7 +42,7 @@
 	EXECUTE cursos_professor_ano 'João C. Martins', 2022;
 
 
-	-- Quais são as turmas do ano corrente
+	-- Quais são as turmas do ano corrente?
 	CREATE VIEW turmas_ano AS
 	SELECT DISTINCT p.Nome_Prof, c.Nome_Curso, t.Cod_turma, t.Ano FROM professor p 
 	JOIN aula a
@@ -79,11 +79,14 @@ BEGIN
 		RETURN @resultado * 100
 END
 
-SELECT Nome_Aluno, Nome_Curso, dbo.percentual_presenca(Matr_Aluno, Cod_curso) AS 'Percentual de Presença' FROM aluno, curso 
+SELECT Nome_Aluno, Nome_Curso, dbo.percentual_presenca(Matr_Aluno, Cod_curso) AS 'Percentual de Presença' 
+FROM aluno, curso 
 WHERE Matr_Aluno = 1 AND Cod_curso = 1
 
 	-- Lista de presença da aula 11
-	SELECT p.Nome_Prof, aula.Data_aula, al.Matr_Aluno, al.Nome_Aluno, CASE WHEN aula_aluno.presenca_aluno = 0 THEN 'Ausente' ELSE 'Presente' END AS 'Presença' 
+	SELECT p.Nome_Prof, aula.Data_aula, al.Matr_Aluno, al.Nome_Aluno, 
+	CASE WHEN aula_aluno.presenca_aluno = 0 
+	THEN 'Ausente' ELSE 'Presente' END AS 'Presença' 
 	FROM aluno al
 	JOIN aula_aluno
 	ON al.Matr_Aluno = aula_aluno.Matr_Aluno
@@ -92,3 +95,23 @@ WHERE Matr_Aluno = 1 AND Cod_curso = 1
 	JOIN professor p
 	ON aula.Matr_Prof = p.Matr_Prof
 	WHERE aula_aluno.Cod_aula = 11;
+
+
+	--Aumento do salário em 10% por turma adicionada no ano
+	CREATE TRIGGER aumenta_salario
+	ON turma
+	AFTER INSERT
+	AS
+	BEGIN
+		DECLARE @qtd_turma DECIMAL, @matr_inserida INT
+		SET @matr_inserida = (SELECT Matr_Prof FROM inserted)
+		SET @qtd_turma = (SELECT COUNT(*) FROM turma 
+		WHERE turma.Matr_Prof = @matr_inserida AND turma.Ano = YEAR(GETDATE()))
+	
+		IF @qtd_turma > 1
+			UPDATE professor
+			SET professor.Salario = professor.Salario * (1 + @qtd_turma / 10)
+			WHERE professor.Matr_Prof = @matr_inserida  
+	END
+
+	--TESTE DO TRIGGER: INSERT INTO turma VALUES ('M', 2022, 2, 3)

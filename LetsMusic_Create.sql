@@ -99,7 +99,8 @@ CREATE UNIQUE INDEX UK_aula_aluno ON aula_aluno (Cod_aula, Matr_Aluno, presenca_
 ALTER TABLE curso
 ADD CONSTRAINT UK_curso UNIQUE (Nome_Curso);
 
-	-- Teste chave unitaria pelo nome do curso
-		--INSERT INTO curso VALUES ('Violão', 90, 10);
 
 CREATE UNIQUE INDEX UK_turma_aluno ON turma_aluno (Cod_turma, Matr_Aluno);
+
+	-- Teste chave unitaria pelo nome do curso
+	--INSERT INTO curso VALUES ('Violão', 90, 10);
