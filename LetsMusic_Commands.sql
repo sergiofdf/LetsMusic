@@ -58,12 +58,20 @@
 
 
 	-- Percentual de presença para um aluno X através de uma função
-	CREATE FUNCTION calcula_percentual_presenca(@pMatr_Aluno INT)
+	CREATE FUNCTION percentual_presenca(@pMatr_Aluno INT, @pCod_curso INT)
 	RETURNS DECIMAL(4,2) AS 
 BEGIN
 		DECLARE @vTotalAulas DECIMAL(4,2), @vPresencas DECIMAL(4,2), @resultado DECIMAL(4,2)
-		SET @vTotalAulas = (SELECT COUNT(*) FROM aula_aluno a WHERE a.Matr_Aluno = @pMatr_Aluno)
-		SET @vPresencas = (SELECT COUNT(*) FROM aula_aluno a WHERE a.Matr_Aluno = @pMatr_Aluno AND a.presenca_aluno = 1)
+		SET @vTotalAulas = (SELECT COUNT(*) FROM aula_aluno a 
+								JOIN aula ON a.Cod_aula = aula.Cod_aula
+								JOIN turma ON aula.Cod_turma = turma.Cod_turma
+								JOIN curso ON turma.Cod_curso = curso.Cod_curso
+								WHERE a.Matr_Aluno = @pMatr_Aluno AND curso.Cod_curso = @pCod_curso)
+		SET @vPresencas = (SELECT COUNT(*) FROM aula_aluno a 
+								JOIN aula ON a.Cod_aula = aula.Cod_aula
+								JOIN turma ON aula.Cod_turma = turma.Cod_turma
+								JOIN curso ON turma.Cod_curso = curso.Cod_curso
+								WHERE a.Matr_Aluno = @pMatr_Aluno AND a.presenca_aluno = 1 AND curso.Cod_curso = @pCod_curso)
 		IF @vTotalAulas = 0
 			SET @resultado = 0
 		ELSE 
@@ -71,7 +79,8 @@ BEGIN
 		RETURN @resultado * 100
 END
 
-SELECT dbo.calcula_percentual_presenca(1) AS 'Percentual de Presença';
+SELECT Nome_Aluno, Nome_Curso, dbo.percentual_presenca(Matr_Aluno, Cod_curso) AS 'Percentual de Presença' FROM aluno, curso 
+WHERE Matr_Aluno = 1 AND Cod_curso = 1
 
 	-- Lista de presença da aula 11
 	SELECT p.Nome_Prof, aula.Data_aula, al.Matr_Aluno, al.Nome_Aluno, CASE WHEN aula_aluno.presenca_aluno = 0 THEN 'Ausente' ELSE 'Presente' END AS 'Presença' 
