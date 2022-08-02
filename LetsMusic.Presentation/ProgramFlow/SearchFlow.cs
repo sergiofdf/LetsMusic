@@ -54,7 +54,7 @@ namespace LetsMusic.Presentation.ProgramFlow
                     LessonSearch();
                     break;
                 case 6:
-                    Environment.Exit(0);
+                    //Environment.Exit(0);
                     break;
             }
             ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);

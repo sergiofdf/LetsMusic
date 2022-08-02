@@ -20,7 +20,7 @@ Selecione a opção desejada:
 3 - Consultar Dados de Cursos
 4 - Consultar Dados de Turmas
 5 - Consultar Dados de Aulas
-6 - Sair
+6 - Voltar
 ";
 
         public const string SearchOptionMenu = @"
@@ -48,7 +48,7 @@ Selecione a opção desejada:
 3 - Registrar Novo Curso
 4 - Registrar Nova Turma
 5 - Registrar Nova Aula
-6 - Sair
+6 - Voltar
 ";
     }
 }
