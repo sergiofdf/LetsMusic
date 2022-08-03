@@ -128,3 +128,22 @@ INSERT INTO aula_aluno VALUES
 (11,33,1),
 (11,34,1),
 (11,35,1);
+
+
+--- ======================EXEMPLO CRUD=============================
+
+--- ==========================CREATE===============================
+INSERT INTO professor
+VALUES ('André C. Matos',3500.00,'11 914091971', 'andre.matos@email.com');
+
+--- ==========================READ===============================
+SELECT * FROM professor;
+
+--- ==========================UPDATE===============================
+UPDATE professor 
+SET Nome_Prof = 'Fabio Soares', Email_Prof = 'fabio.soares@email.com'
+WHERE Matr_Prof = 8;
+
+--- ==========================DELETE===============================
+DELETE FROM professor
+WHERE Matr_Prof = 9;
