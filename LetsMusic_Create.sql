@@ -86,6 +86,11 @@ ALTER TABLE aula
 		FOREIGN KEY (Cod_turma)
 		REFERENCES turma (Cod_turma);
 
+ALTER TABLE turma_aluno
+	ADD CONSTRAINT FK_turma_aluno
+		FOREIGN KEY (Matr_Aluno)
+		REFERENCES aluno (Matr_Aluno);
+
 
 -- Criação de chaves únicas
 CREATE UNIQUE INDEX UK_professor ON professor (Nome_Prof, Email_Prof);
