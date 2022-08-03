@@ -65,13 +65,11 @@ BEGIN
 		SET @vTotalAulas = (SELECT COUNT(*) FROM aula_aluno a 
 								JOIN aula ON a.Cod_aula = aula.Cod_aula
 								JOIN turma ON aula.Cod_turma = turma.Cod_turma
-								JOIN curso ON turma.Cod_curso = curso.Cod_curso
-								WHERE a.Matr_Aluno = @pMatr_Aluno AND curso.Cod_curso = @pCod_curso)
+								WHERE a.Matr_Aluno = @pMatr_Aluno AND turma.Cod_curso = @pCod_curso)
 		SET @vPresencas = (SELECT COUNT(*) FROM aula_aluno a 
 								JOIN aula ON a.Cod_aula = aula.Cod_aula
 								JOIN turma ON aula.Cod_turma = turma.Cod_turma
-								JOIN curso ON turma.Cod_curso = curso.Cod_curso
-								WHERE a.Matr_Aluno = @pMatr_Aluno AND a.presenca_aluno = 1 AND curso.Cod_curso = @pCod_curso)
+								WHERE a.Matr_Aluno = @pMatr_Aluno AND a.presenca_aluno = 1 AND turma.Cod_curso = @pCod_curso)
 		IF @vTotalAulas = 0
 			SET @resultado = 0
 		ELSE 
