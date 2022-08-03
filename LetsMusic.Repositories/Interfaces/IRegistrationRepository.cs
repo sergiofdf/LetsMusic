@@ -2,6 +2,6 @@
 {
     public interface IRegistrationRepository<T> where T : class
     {
-        public void Save(T entity);
+        public bool Save(T entity);
     }
 }

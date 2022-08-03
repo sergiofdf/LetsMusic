@@ -4,8 +4,7 @@
     {
         public void OpenSearchMenu();
         public void SearchMenu();
-        public int TypeOfSearch1();
-        public int TypeOfSearch2();
+        public int TypeOfSearch(int menu);
         public void PersonSearch(int type, string searchObject);
         public void CourseSearch(int type, string searchObject);
         public void ClassSearch(int type, string searchObject);

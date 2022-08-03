@@ -11,30 +11,30 @@ namespace LetsMusic.Repositories
         {
             _baseRepository = baseRepository;
         }
-        public void GetDataById(int id)
+        public DataTable GetDataById(int id)
         {
             string getSqlCommand = $"SELECT * FROM professor WHERE Matr_Prof = {id};";
-            ExecuteQuerySearch(getSqlCommand);
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void GetDataByName(string name)
+        public DataTable GetDataByName(string name)
         {
             string getSqlCommand = $"SELECT * FROM professor WHERE UPPER(Nome_Prof) LIKE UPPER('%{name}%');";
-            ExecuteQuerySearch(getSqlCommand);
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void ListAllData()
+        public DataTable ListAllData()
         {
             string getSqlCommand = $"SELECT * FROM professor";
-            ExecuteQuerySearch(getSqlCommand);
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void ExecuteQuerySearch(string getSqlCommand)
+        public DataTable ExecuteQuerySearch(string getSqlCommand)
         {
             DataTable teachers = _baseRepository.Get(getSqlCommand);
-            teachers.Print();
+            return teachers;
         }
-        public void Save(Teacher teacher)
+        public bool Save(Teacher teacher)
         {
             string saveSqlCommand = $"INSERT INTO professor VALUES('{teacher.Name}',{teacher.Salary},'{teacher.Phone}','{teacher.Email}'); ";
-            _baseRepository.Save(saveSqlCommand);
+            return _baseRepository.Save(saveSqlCommand);
         }
     }
 }

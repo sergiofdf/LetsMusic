@@ -39,12 +39,8 @@ namespace LetsMusic.Presentation.ProgramFlow
                     LessonRegistration();
                     break;
                 case 6:
-                    //Environment.Exit(0);
                     break;
             }
-            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
-            Console.ReadKey();
-            OpenRegistrationMenu();
         }
 
         public void StudentRegistration()
@@ -55,8 +51,15 @@ namespace LetsMusic.Presentation.ProgramFlow
             student.Phone = ScreenPresenter.GetInput(Messages.phoneInput, InputValidations.ValidateConsoleNotEmpty, Messages.phoneInputError);
 
             bool registrationResult = _registrationServices.StudentRegistration(student);
-            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
-            Console.ReadKey();
+
+            if (registrationResult)
+            {
+                Console.WriteLine("Aluno cadastrado com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Erro no cadastro. Verifique se o aluno já não foi cadastrado anteriormente.");
+            }
         }
         public void TeacherRegistration()
         {
@@ -67,9 +70,14 @@ namespace LetsMusic.Presentation.ProgramFlow
             teacher.Phone = ScreenPresenter.GetInput(Messages.phoneInput, InputValidations.ValidateConsoleNotEmpty, Messages.phoneInputError);
 
             bool registrationResult = _registrationServices.TeacherRegistration(teacher);
-            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
-            Console.ReadKey();
-
+            if (registrationResult)
+            {
+                Console.WriteLine("Professor cadastrado com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Erro no cadastro. Verifique se o professor já não foi cadastrado anteriormente.");
+            }
         }
         public void CourseRegistration()
         {
@@ -79,9 +87,14 @@ namespace LetsMusic.Presentation.ProgramFlow
             course.Vacancies = Convert.ToInt32(ScreenPresenter.GetInput(Messages.vacanciesInput, InputValidations.ValidatePositiveNumber, Messages.vacanciesInputError));
 
             bool registrationResult = _registrationServices.CourseRegistration(course);
-            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
-            Console.ReadKey();
-
+            if (registrationResult)
+            {
+                Console.WriteLine("Curso cadastrado com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Erro no cadastro. Verifique se o curso já não foi cadastrado anteriormente.");
+            }
         }
         public void ClassRegistration()
         {

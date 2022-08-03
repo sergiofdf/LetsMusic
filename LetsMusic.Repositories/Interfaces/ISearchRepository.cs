@@ -1,10 +1,12 @@
-﻿namespace LetsMusic.Repositories.Interfaces
+﻿using System.Data;
+
+namespace LetsMusic.Repositories.Interfaces
 {
     public interface ISearchRepository<T> where T : class
     {
-        public void ListAllData();
-        public void GetDataById(int id);
-        public void GetDataByName(string name);
-        public void ExecuteQuerySearch(string getSqlCommand);
+        public DataTable ListAllData();
+        public DataTable GetDataById(int id);
+        public DataTable GetDataByName(string name);
+        public DataTable ExecuteQuerySearch(string getSqlCommand);
     }
 }

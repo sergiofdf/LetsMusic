@@ -7,36 +7,47 @@ namespace LetsMusic.Repositories.Base
 {
     public class BaseRepository : IBaseRepository
     {
-        public BaseRepository()
+        public bool Save(string saveSqlCommand)
         {
-
-        }
-        public void Save(string saveSqlCommand)
-        {
-            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
-
-            using (SqlConnection openCon = new SqlConnection(conString))
+            try
             {
-                using (SqlCommand querySaveStaff = new SqlCommand(saveSqlCommand))
+                string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
+
+                using (SqlConnection openCon = new SqlConnection(conString))
                 {
-                    querySaveStaff.Connection = openCon;
-                    openCon.Open();
-                    querySaveStaff.ExecuteNonQuery();
+                    using (SqlCommand querySaveStaff = new SqlCommand(saveSqlCommand))
+                    {
+                        querySaveStaff.Connection = openCon;
+                        openCon.Open();
+                        querySaveStaff.ExecuteNonQuery();
+                    }
                 }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
         public DataTable Get(string getSqlCommand)
         {
-            string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
-
-            using (SqlConnection openCon = new SqlConnection(conString))
+            try
             {
-                SqlDataAdapter sqlda = new SqlDataAdapter(getSqlCommand, openCon);
-                DataTable dtbl = new DataTable();
-                sqlda.Fill(dtbl);
+                string conString = ConfigurationManager.ConnectionStrings["LetsMusic"].ConnectionString;
 
-                return dtbl;
+                using (SqlConnection openCon = new SqlConnection(conString))
+                {
+                    SqlDataAdapter sqlda = new SqlDataAdapter(getSqlCommand, openCon);
+                    DataTable dtbl = new DataTable();
+                    sqlda.Fill(dtbl);
+
+                    return dtbl;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         public void Update(string updateSqlCommand)

@@ -19,18 +19,16 @@ namespace LetsMusic.Services
         }
         public bool TeacherRegistration(Teacher teacher)
         {
-            _teacherRepository.Save(teacher);
-            return true;
+            return _teacherRepository.Save(teacher);
         }
         public bool StudentRegistration(Student student)
         {
-            _studentRepository.Save(student);
-            return true;
+            return _studentRepository.Save(student);
+
         }
         public bool CourseRegistration(Course course)
         {
-            _courseRepository.Save(course);
-            return true;
+            return _courseRepository.Save(course);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LetsMusic.Domain;
 using LetsMusic.Repositories.Interfaces;
+using System.Data;
 
 namespace LetsMusic.Services
 {
@@ -22,67 +23,64 @@ namespace LetsMusic.Services
             _classRepository = classRepository;
         }
 
-        public void SearchById(int id, string searchObject)
+        public DataTable SearchById(int id, string searchObject)
         {
             if (searchObject == "student")
             {
-                _studentRepository.GetDataById(id);
+                return _studentRepository.GetDataById(id);
             }
             else if (searchObject == "teacher")
             {
-                _teacherRepository.GetDataById(id);
+                return _teacherRepository.GetDataById(id);
             }
             else if (searchObject == "course")
             {
-                _courseRepository.GetDataById(id);
+                return _courseRepository.GetDataById(id);
             }
-            else if (searchObject == "class")
+            else
             {
-                _classRepository.GetDataById(id);
+                return _classRepository.GetDataById(id);
             }
         }
 
-        public void SearchByName(string name, string searchObject)
+        public DataTable SearchByName(string name, string searchObject)
         {
             if (searchObject == "student")
             {
-                _studentRepository.GetDataByName(name);
+                return _studentRepository.GetDataByName(name);
             }
             else if (searchObject == "teacher")
             {
-                _teacherRepository.GetDataByName(name);
+                return _teacherRepository.GetDataByName(name);
             }
-            else if (searchObject == "course")
+            else
             {
-                _courseRepository.GetDataByName(name);
+                return _courseRepository.GetDataByName(name);
             }
         }
 
-        public void ListAllData(string searchObject)
+        public DataTable ListAllData(string searchObject)
         {
             if (searchObject == "student")
             {
-                _studentRepository.ListAllData();
+                return _studentRepository.ListAllData();
             }
             else if (searchObject == "teacher")
             {
-                _teacherRepository.ListAllData();
+                return _teacherRepository.ListAllData();
             }
             else if (searchObject == "course")
             {
-                _courseRepository.ListAllData();
+                return _courseRepository.ListAllData();
             }
-            else if (searchObject == "class")
+            else
             {
-                _classRepository.ListAllData();
+                return _classRepository.ListAllData();
             }
         }
-        public void SearchByYear(int year, string searchObject)
+        public DataTable SearchByYear(int year)
         {
-            if (searchObject == "class")
-            {
-                _classRepository.GetDataByYear(year);
-            }
+            return _classRepository.GetDataByYear(year);
         }
     }
 }

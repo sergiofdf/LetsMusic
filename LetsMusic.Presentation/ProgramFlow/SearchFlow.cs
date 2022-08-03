@@ -2,6 +2,7 @@
 using LetsMusic.Presentation.Infrastructure;
 using LetsMusic.Presentation.Presentations;
 using LetsMusic.Services;
+using System.Data;
 
 namespace LetsMusic.Presentation.ProgramFlow
 {
@@ -27,25 +28,25 @@ namespace LetsMusic.Presentation.ProgramFlow
             switch (selectedMenu)
             {
                 case 1:
-                    type = TypeOfSearch1();
+                    type = TypeOfSearch(1);
                     if (type == 0) break;
                     searchObject = "student";
                     PersonSearch(type, searchObject);
                     break;
                 case 2:
-                    type = TypeOfSearch1();
+                    type = TypeOfSearch(1);
                     if (type == 0) break;
                     searchObject = "teacher";
                     PersonSearch(type, searchObject);
                     break;
                 case 3:
-                    type = TypeOfSearch1();
+                    type = TypeOfSearch(1);
                     if (type == 0) break;
                     searchObject = "course";
                     CourseSearch(type, searchObject);
                     break;
                 case 4:
-                    type = TypeOfSearch2();
+                    type = TypeOfSearch(2);
                     if (type == 0) break;
                     searchObject = "class";
                     ClassSearch(type, searchObject);
@@ -54,39 +55,23 @@ namespace LetsMusic.Presentation.ProgramFlow
                     LessonSearch();
                     break;
                 case 6:
-                    //Environment.Exit(0);
                     break;
             }
-            ScreenPresenter.DisplayMessage(Messages.pressKeyContinue);
-            Console.ReadKey();
-            OpenSearchMenu();
         }
 
-        public int TypeOfSearch1()
+        public int TypeOfSearch(int menu)
         {
-            var selectedMenu = ScreenPresenter.GetOption(
-                Menu.SearchOptionMenu, 1, 4);
-            switch (selectedMenu)
+            int selectedMenu;
+            if (menu == 1)
             {
-                case 1:
-                    return 1;
-                    break;
-                case 2:
-                    return 2;
-                    break;
-                case 3:
-                    return 3;
-                    break;
-                case 4:
-                    return 0;
-                    break;
+                selectedMenu = ScreenPresenter.GetOption(
+                Menu.SearchOptionMenu, 1, 4);
             }
-            return 0;
-        }
-        public int TypeOfSearch2()
-        {
-            var selectedMenu = ScreenPresenter.GetOption(
+            else
+            {
+                selectedMenu = ScreenPresenter.GetOption(
                 Menu.SearchOptionMenu2, 1, 4);
+            }
             switch (selectedMenu)
             {
                 case 1:
@@ -109,18 +94,35 @@ namespace LetsMusic.Presentation.ProgramFlow
             if (type == 1)
             {
                 Person person = new();
-                person.Registration = Convert.ToInt32(ScreenPresenter.GetInput(Messages.idInput, InputValidations.ValidateConsoleNotEmpty, Messages.idInputError));
-                _searchServices.SearchById(person.Registration, searchObject);
+                person.Registration = Convert.ToInt32(ScreenPresenter.GetInput(Messages.idInput, InputValidations.ValidatePositiveNumber, Messages.idInputError));
+                var searchedPerson = _searchServices.SearchById(person.Registration, searchObject);
+                if (searchedPerson.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum aluno encontrado para a matrícula digitada.");
+                }
+                else
+                    searchedPerson.Print();
             }
             if (type == 2)
             {
                 Person person = new();
                 person.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
-                _searchServices.SearchByName(person.Name, searchObject);
+                var searchedPerson = _searchServices.SearchByName(person.Name, searchObject);
+                if (searchedPerson.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum aluno encontradao para o nome digitado.");
+                }
+                else
+                    searchedPerson.Print();
             }
             if (type == 3)
             {
-                _searchServices.ListAllData(searchObject);
+                var people = _searchServices.ListAllData(searchObject);
+                people.Print();
+                if (people.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum aluno cadastrado.");
+                }
             }
         }
         public void CourseSearch(int type, string searchObject)
@@ -128,18 +130,35 @@ namespace LetsMusic.Presentation.ProgramFlow
             if (type == 1)
             {
                 Course course = new();
-                course.CourseId = Convert.ToInt32(ScreenPresenter.GetInput(Messages.CourseIdInput, InputValidations.ValidateConsoleNotEmpty, Messages.idInputError));
-                _searchServices.SearchById(course.CourseId, searchObject);
+                course.CourseId = Convert.ToInt32(ScreenPresenter.GetInput(Messages.CourseIdInput, InputValidations.ValidatePositiveNumber, Messages.idInputError));
+                var searchedCourse = _searchServices.SearchById(course.CourseId, searchObject);
+                if (searchedCourse.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum curso encontrado para o código digitado.");
+                }
+                else
+                    searchedCourse.Print();
             }
             if (type == 2)
             {
                 Course course = new();
                 course.Name = ScreenPresenter.GetInput(Messages.nameInput, InputValidations.ValidateConsoleNotEmpty, Messages.nameInputError);
-                _searchServices.SearchByName(course.Name, searchObject);
+                var searchedCourse = _searchServices.SearchByName(course.Name, searchObject);
+                if (searchedCourse.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum curso encontrado para o nome digitado.");
+                }
+                else
+                    searchedCourse.Print();
             }
             if (type == 3)
             {
-                _searchServices.ListAllData(searchObject);
+                var courseList = _searchServices.ListAllData(searchObject);
+                courseList.Print();
+                if (courseList.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum curso cadastrado.");
+                }
             }
 
         }
@@ -148,18 +167,35 @@ namespace LetsMusic.Presentation.ProgramFlow
             if (type == 1)
             {
                 MusicClass musicClass = new();
-                musicClass.ClassId = Convert.ToInt32(ScreenPresenter.GetInput(Messages.CourseIdInput, InputValidations.ValidateConsoleNotEmpty, Messages.idInputError));
-                _searchServices.SearchById(musicClass.ClassId, searchObject);
+                musicClass.ClassId = Convert.ToInt32(ScreenPresenter.GetInput(Messages.CourseIdInput, InputValidations.ValidatePositiveNumber, Messages.idInputError));
+                var searchedClass = _searchServices.SearchById(musicClass.ClassId, searchObject);
+                if (searchedClass.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhuma turma encontrada para o código digitado.");
+                }
+                else
+                    searchedClass.Print();
             }
             if (type == 2)
             {
                 MusicClass musicClass = new();
-                musicClass.Year = Convert.ToInt32(ScreenPresenter.GetInput(Messages.yearInput, InputValidations.ValidateConsoleNotEmpty, Messages.yearInputError));
-                _searchServices.SearchByYear(musicClass.Year, searchObject);
+                musicClass.Year = Convert.ToInt32(ScreenPresenter.GetInput(Messages.yearInput, InputValidations.ValidatePositiveNumber, Messages.yearInputError));
+                var searchedClass = _searchServices.SearchByYear(musicClass.Year);
+                if (searchedClass.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhuma turma encontrada para o ano digitado.");
+                }
+                else
+                    searchedClass.Print();
             }
             if (type == 3)
             {
-                _searchServices.ListAllData(searchObject);
+                var classList = _searchServices.ListAllData(searchObject);
+                classList.Print();
+                if (classList.Rows.Count == 0)
+                {
+                    Console.WriteLine("Nenhum curso cadastrado.");
+                }
             }
         }
         public void LessonSearch()

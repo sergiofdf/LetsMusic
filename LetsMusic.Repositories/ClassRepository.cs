@@ -10,25 +10,25 @@ namespace LetsMusic.Repositories
         {
             _baseRepository = baseRepository;
         }
-        public void ListAllData()
+        public DataTable ListAllData()
         {
-            string getSqlCommand = $"SELECT * FROM turma";
-            ExecuteQuerySearch(getSqlCommand);
+            string getSqlCommand = $"SELECT Cod_turma, Ano, Matr_Prof, Cod_curso, CASE WHEN Periodo = 'M' THEN 'Matutino' WHEN Periodo = 'V' THEN 'Vespertino' ELSE 'Noturno' END AS 'Periodo' FROM turma";
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void GetDataById(int id)
+        public DataTable GetDataById(int id)
         {
-            string getSqlCommand = $"SELECT * FROM turma WHERE Cod_turma = {id};";
-            ExecuteQuerySearch(getSqlCommand);
+            string getSqlCommand = $"SELECT Cod_turma, Ano, Matr_Prof, Cod_curso, CASE WHEN Periodo = 'M' THEN 'Matutino' WHEN Periodo = 'V' THEN 'Vespertino' ELSE 'Noturno' END AS 'Periodo' FROM turma WHERE Cod_turma = {id};";
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void GetDataByYear(int year)
+        public DataTable GetDataByYear(int year)
         {
-            string getSqlCommand = $"SELECT * FROM turma WHERE Ano = {year};";
-            ExecuteQuerySearch(getSqlCommand);
+            string getSqlCommand = $"SELECT Cod_turma, Ano, Matr_Prof, Cod_curso, CASE WHEN Periodo = 'M' THEN 'Matutino' WHEN Periodo = 'V' THEN 'Vespertino' ELSE 'Noturno' END AS 'Periodo' FROM turma WHERE Ano = {year};";
+            return ExecuteQuerySearch(getSqlCommand);
         }
-        public void ExecuteQuerySearch(string getSqlCommand)
+        public DataTable ExecuteQuerySearch(string getSqlCommand)
         {
             DataTable students = _baseRepository.Get(getSqlCommand);
-            students.Print();
+            return students;
         }
     }
 }

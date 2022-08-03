@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace LetsMusic.Presentation.Infrastructure
+﻿namespace LetsMusic.Presentation.Infrastructure
 {
     public static class InputValidations
     {
@@ -20,11 +18,6 @@ namespace LetsMusic.Presentation.Infrastructure
                 return double.TryParse(input, out convertedValue) && convertedValue >= 0;
             }
             return false;
-        }
-        public static bool ValidateCpf(string cpf)
-        {
-            Regex RgxCpf = new(@"^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$");
-            return RgxCpf.Match(cpf).Success;
         }
     }
 }
